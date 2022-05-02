@@ -69,8 +69,8 @@ ggplot(data_CTRL, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Day)) 
 ggplot(data_CTRL, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill = Day)) + ylab("LAMP1(>500)/Cell")+ylim(0,2.5) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 
 #graphs LAMP1 CQ
-ggplot(data_CQ_d2, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ ylab("LAMP1(5-500)/Cell")+ ggtitle("D2") + ylim(0,500) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
-ggplot(data_CQ_d4, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ ylab("LAMP1(5-500)/Cell")+ ggtitle("D4") + ylim(0,500) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_CQ_d2, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ ylab("LAMP1(5-500)/Cell")+ ggtitle("D2") + ylim(0,200) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_CQ_d4, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ ylab("LAMP1(5-500)/Cell")+ ggtitle("D4") + ylim(0,200) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_CQ_d2, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill = Treatment))+ylab("LAMP1(>500)/Cell")+ ggtitle("D2") + ylim(0,2.5) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_CQ_d4, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill = Treatment))+ylab("LAMP1(>500)/Cell")+ ggtitle("D4") + ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 
@@ -81,8 +81,8 @@ ggplot(data_others_d2, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill =
 ggplot(data_others_d4, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill = Treatment))+ylab("LAMP1(>500)/Cell")+ ggtitle("D4") + ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 
 #graphs LAMP1 doc+tre
-ggplot(data_doc_tre_d2, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ylab("LAMP1(5-500)/Cell")+ ggtitle("D2") + ylim(0,500)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
-ggplot(data_doc_tre_d4, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ylab("LAMP1(5-500)/Cell")+ ggtitle("D4") + ylim(0,500)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_doc_tre_d2, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ylab("LAMP1(5-500)/Cell")+ ggtitle("D2") + ylim(0,150)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_doc_tre_d4, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Treatment))+ylab("LAMP1(5-500)/Cell")+ ggtitle("D4") + ylim(0,150)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_doc_tre_d2, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill = Treatment))+ylab("LAMP1(>500)/Cell")+ ggtitle("D2") + ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_doc_tre_d4, aes(x=Condition, y=LAMP1_over500_per_cell_average, fill = Treatment))+ylab("LAMP1(>500)/Cell")+ ggtitle("D4") + ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 
@@ -94,8 +94,8 @@ ggplot(data_CTRL, aes(x=Condition, y=LC3_5_500_per_cell_average, fill = Day))+yl
 #graphs LC3 CQ
 ggplot(data_CQ_d2, aes(x=Condition, y=LC3_5_500_per_cell_average, fill = Treatment))+ylab("LC3(5-500)/Cell") + ggtitle("D2")+ ylim(0,100)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_CQ_d4, aes(x=Condition, y=LC3_5_500_per_cell_average, fill = Treatment))+ylab("LC3(5-500)/Cell") + ggtitle("D4")+ ylim(0,100)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
-ggplot(data_CQ_d2, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ylab("LC3(>500)/Cell") + ggtitle("D2")+ ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
-ggplot(data_CQ_d4, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ ylab("LC3(>500)/Cell") + ggtitle("D4")+ ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_CQ_d2, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ylab("LC3(>500)/Cell") + ggtitle("D2")+ ylim(0,1.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_CQ_d4, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ ylab("LC3(>500)/Cell") + ggtitle("D4")+ ylim(0,1.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 
 #graphs LC3 others 
 ggplot(data_others_d2, aes(x=Condition, y=LC3_5_500_per_cell_average, fill = Treatment))+ylab("LC3(5-500)/Cell") + ggtitle("D2")+ ylim(0,100)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
@@ -106,5 +106,5 @@ ggplot(data_others_d4, aes(x=Condition, y=LC3_over500_per_cell_average, fill = T
 #graphs LC3 doc+tre 
 ggplot(data_doc_tre_d2, aes(x=Condition, y=LC3_5_500_per_cell_average, fill = Treatment))+ylab("LC3(5-500)/Cell")+ ggtitle("D2") + ylim(0,40)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_doc_tre_d4, aes(x=Condition, y=LC3_5_500_per_cell_average, fill = Treatment))+ylab("LC3(5-500)/Cell")+ ggtitle("D4") + ylim(0,40)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
-ggplot(data_doc_tre_d2, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ylab("LC3(>500)/Cell")+ ggtitle("D2") + ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
-ggplot(data_doc_tre_d4, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ylab("LC3(>500)/Cell")+ ggtitle("D4") + ylim(0,2.5)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_doc_tre_d2, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ylab("LC3(>500)/Cell")+ ggtitle("D2") + ylim(0,1)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+ggplot(data_doc_tre_d4, aes(x=Condition, y=LC3_over500_per_cell_average, fill = Treatment))+ylab("LC3(>500)/Cell")+ ggtitle("D4") + ylim(0,1)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
