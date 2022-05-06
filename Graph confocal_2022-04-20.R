@@ -3,6 +3,8 @@ library(tidyverse)
 #large pc
 data_original=read.csv("G:/Confocal/D2 D4 O4 LC3 LAMP1 CQ DOC TRE N1 LG NG LAMP1 LC3-LAMP1 2022-04-19.csv", sep =",", header=TRUE)
 rename(data_original, Prep = ?..Prep ) -> data_original
+
+#from github
 data_original=D2_D4_O4_LC3_LAMP1_CQ_DOC_TRE_N1_LG_NG_LAMP1_LC3_LAMP1_2022_04_29
 
 #Calculate vesicles per cell and summarize
@@ -41,18 +43,6 @@ data_sum %>% filter(Treatment != "CQ" & Day == "D4") -> data_others_d4
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D2") -> data_doc_tre_d2
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D4") -> data_doc_tre_d4
 
-data_frame_list = list(data_CTRL, data_CQ_d2, data_CQ_d4,data_others_d2, data_others_d4, data_doc_tre_d2, data_doc_tre_d4)
-
-#boxplot graph with df=dataframe, a=y axis variable, lab=label y axis, lim sup= limite y axis
-box_plot_graph <- function(df, a, f, lab, lim){
-  theme_settings = theme(axis.line=element_line(size=1, colour="black"),axis.text=element_text(size=10, color="black", face=2),axis.title=element_text(face=2), panel.background=element_rect(fill="white"))
-  scale_fill_settings = scale_fill_grey(start=0.9, end=0.55)
-  scale_x_settings = scale_x_discrete(limits=c("N1","LG","NG"))
-  boxplot_settings = geom_boxplot(position=position_dodge(1))
-  dotplot_settings = geom_dotplot(binaxis = "y", stackdir="center", dotsize=.3, position=position_dodge(1))
-  ggplot(df, aes(x=Condition, y=a, fill = f)) + ylab(lab) + ylim(0,lim) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings  
-}
-
 #graph settings
 theme_settings = theme(axis.line=element_line(size=1, colour="black"),axis.text=element_text(size=10, color="black", face=2),axis.title=element_text(face=2), panel.background=element_rect(fill="white"))
 scale_fill_settings = scale_fill_grey(start=0.9, end=0.55)
@@ -60,9 +50,6 @@ scale_x_settings = scale_x_discrete(limits=c("N1","LG","NG"))
 boxplot_settings = geom_boxplot(position=position_dodge(1))
 dotplot_settings = geom_dotplot(binaxis = "y", stackdir="center", dotsize=1, position=position_dodge(1))
 line_settings = geom_line()
-
-box_plot_graph(i, i$LAMP1_5_500_per_cell_average, i$Day, "LAMP1(5-500)/Cell", 500)
-
 
 #graphs LAMP1 CTRL
 ggplot(data_CTRL, aes(x=Condition, y=LAMP1_5_500_per_cell_average, fill = Day)) + ylab("LAMP1(5-500)/Cell") + ylim(0,300) + boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
