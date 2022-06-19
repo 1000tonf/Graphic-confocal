@@ -1,3 +1,4 @@
+library(tidyverse)
 data_original=D2_D4_O4_LC3_LAMP1_CQ_DOC_TRE_N1_LG_NG_LAMP1_LC3_LAMP1_2022_04_29
 data_original %>% mutate_all(~replace(.,is.na(.),0)) -> data_original
 
@@ -30,7 +31,22 @@ data_sum %>% filter((Treatment == "CTRL" | Treatment == "CQ") & Day == "D4") -> 
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D2") -> data_doc_tre_d2
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D4") -> data_doc_tre_d4
 
+#Setting condition as factor
+data_CTRL$Condition_f = factor(data_CTRL$Condition, levels = c("N1", "LG", "NG"))
+
+#graph settings
+theme_settings = theme(axis.line=element_line(size=1, colour="black"),panel.background=element_rect(fill="white"), 
+ axis.text=element_text(size=12, color="black", face=2), axis.title =element_text(size=14, color="black", face=2) , 
+ strip.text = element_text(size=12, color="black", face=2))
+
+#significant bar coordinates
+lines <-tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG")),
+  x =c(1, 1), xend=c(2,2), y=c(20, 35), yend=y)
+pvalues <- tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG")), 
+  x =c(1.5, 1.5), y=c(22, 37), label = c("p = 0.085", "p = 0.009"))
+
 data_CTRL %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep))+
-  facet_grid(cols=vars(Condition))+ geom_line() +
-   geom_point()
-   
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings +
+  geom_segment(data=lines, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
+  geom_text(data=pvalues, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+      
