@@ -45,8 +45,16 @@ lines <-tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG"))
 pvalues <- tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG")), 
   x =c(1.5, 1.5), y=c(22, 37), label = c("p = 0.085", "p = 0.009"))
 
+#before-after graph CTRL
 data_CTRL %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep))+
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings +
   geom_segment(data=lines, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues, aes(x=x, y=y, label=label), inherit.aes = FALSE)
       
+#before-after graphs (LC3+LAMP1)
+data_CTRL %>% ggplot(aes(x=Day, y=LAMP1.LC3_per_cell_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 + LAMP1 puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings
+
+#before-after graphs NOT(LC3+LAMP1)
+data_CTRL %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3-only puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings
