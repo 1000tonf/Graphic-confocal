@@ -33,11 +33,18 @@ data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D4") -> d
 
 #Setting condition as factor
 data_CTRL$Condition_f = factor(data_CTRL$Condition, levels = c("N1", "LG", "NG"))
+data_CQ_d2$Condition_f = factor(data_CQ_d2$Condition, levels = c("N1", "LG", "NG"))
+data_CQ_d4$Condition_f = factor(data_CQ_d4$Condition, levels = c("N1", "LG", "NG"))
+
+#Setting treatment as factor
+data_CQ_d2$Treatment_f = factor(data_CQ_d2$Treatment, levels = c("CTRL", "CQ"))
+data_CQ_d4$Treatment_f = factor(data_CQ_d4$Treatment, levels = c("CTRL", "CQ"))
+
 
 #graph settings
 theme_settings = theme(axis.line=element_line(size=1, colour="black"),panel.background=element_rect(fill="white"), 
  axis.text=element_text(size=12, color="black", face=2), axis.title =element_text(size=14, color="black", face=2) , 
- strip.text = element_text(size=12, color="black", face=2))
+ title =element_text(size=14, color="black", face=2), strip.text = element_text(size=12, color="black", face=2))
 
 ##CTRL###################################
 
@@ -53,7 +60,7 @@ data_CTRL %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep))+
   geom_segment(data=lines, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues, aes(x=x, y=y, label=label), inherit.aes = FALSE)
 
-
+##CTRL LC3+LAMP1###################################
 
 #significant bar coordinates graph CTRL (LC3+LAMP1)
 lines_LC3.LAMP1 <-tibble(Condition_f = factor(c("NG"), levels = c("N1", "LG", "NG")),
@@ -67,7 +74,7 @@ data_CTRL %>% ggplot(aes(x=Day, y=LAMP1.LC3_per_cell_average, group=Prep))+
   geom_segment(data=lines_LC3.LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues_LC3.LAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
 
-
+##CTRL not LC3+LAMP1###################################
 
 #significant bar coordinates graph CTRL NOT(LC3+LAMP1)
 lines_not_LC3.LAMP1 <-tibble(Condition_f = factor(c("NG"), levels = c("N1", "LG", "NG")),
@@ -80,3 +87,15 @@ data_CTRL %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3 only puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings+
   geom_segment(data=lines_not_LC3.LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues_not_LC3.LAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+
+##CQ D2 ###################################
+
+#before-after graph CQ d2
+data_CQ_d2 %>% ggplot(aes(x=Treatment_f, y=LC3_per_cell_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ xlab("Treatment")+ ggtitle("D2")+ ylim(0,100)+ geom_point()+theme_settings
+
+#before-after graph CQ d4
+data_CQ_d4 %>% ggplot(aes(x=Treatment_f, y=LC3_per_cell_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ xlab("Treatment")+ ggtitle("D4")+ ylim(0,100)+ geom_point()+theme_settings
+
+
