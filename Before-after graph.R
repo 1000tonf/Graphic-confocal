@@ -99,7 +99,7 @@ lines_CQ <-tibble(Condition_f = factor(c("LG","NG"), levels = c("N1", "LG", "NG"
 pvalues_CQ <- tibble(Condition_f = factor(c("LG","NG"), levels = c("N1", "LG", "NG")), 
                                 x =c(1.5,1.5), y=c(36, 84), label = c("p=0.074","p = 0.087"))
 
-#before-after graph CQ
+#before-after graph CQ LC3
 data_CQ %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep))+
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ylim(0,100)+ geom_point()+theme_settings+
   geom_segment(data=lines_CQ, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
@@ -114,7 +114,7 @@ lines_CQ_LC3_not_LAMP1 <-tibble(Condition_f = factor(c("N1","LG","NG"), levels =
 pvalues_CQ_LC3_not_LAMP1 <- tibble(Condition_f = factor(c("N1","LG","NG"), levels = c("N1", "LG", "NG")), 
                      x =c(1.5,1.5,1.5), y=c(46, 30, 34), label = c("p=0.129","p=0.108","p = 0.096"))
 
-#before-after graph CQ
+#before-after graph CQ Lc3notLAMP1
 data_CQ %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep))+
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3+LAMP1- puncta/Cell")+ylim(0,100)+ geom_point()+theme_settings+
   geom_segment(data=lines_CQ_LC3_not_LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
