@@ -8,12 +8,14 @@ data_original=D2_D4_O4_LC3_LAMP1_CQ_DOC_TRE_N1_LG_NG_LAMP1_LC3_LAMP1_2022_04_29
 #Calculate vesicles per cell and summarize
 data_original[is.na(data_original)]=0
 data_original %>%  
-  mutate(LC3_per_cell_area = (`LC3(5-500)`* `Size LC3(5-500)` + `LC3(>500)`* `Size LC3(>500)`)/`Cell Area`) %>% 
-  mutate(LAMP1_per_cell_area = (`LAMP1(5-500)`* `Size LAMP1(5-500)`+ `LAMP1(>500)`* `Size LAMP1(>500)`)/`Cell Area`) %>%
-  select (Prep, Day, Treatment, Condition, LC3_per_cell_area, LAMP1_per_cell_area)   %>% 
+  mutate(LC3_per_cell_area = (`LC3(5-500)`* `Size LC3(5-500)` + `LC3(>500)`* `Size LC3(>500)`)/`Cell Area`, 
+  LAMP1_per_cell_area = (`LAMP1(5-500)`* `Size LAMP1(5-500)`+ `LAMP1(>500)`* `Size LAMP1(>500)`)/`Cell Area`,
+  LC3_notLAMP1_per_cell_area = ((`LC3(5-500)`* `Size LC3(5-500)` + `LC3(>500)`* `Size LC3(>500)` -`LAMP1+LC3(5-500)`* `Size LAMP1+LC3(5-500)`-`LAMP1+LC3(>500)`* `Size LAMP1+LC3(>500)`)/`Cell Area`)) %>%
+  select (Prep, Day, Treatment, Condition, LC3_per_cell_area, LAMP1_per_cell_area, LC3_notLAMP1_per_cell_area)   %>% 
   group_by(Prep, Day, Treatment, Condition) %>% 
   summarise(LC3_per_cell_area_average = mean(LC3_per_cell_area),
-            LAMP1_per_cell_area_average = mean(LAMP1_per_cell_area)) -> data_sum
+            LAMP1_per_cell_area_average = mean(LAMP1_per_cell_area),
+            LC3_notLAMP1_per_cell_area = mean(LC3_notLAMP1_per_cell_area)) -> data_sum
 
 
 #Tables for specific selections
@@ -53,3 +55,34 @@ ggplot(data_CQ_d4, aes(x=Condition, y=LC3_per_cell_area_average, fill = Treatmen
 #graphs LC3 doc+tre 
 ggplot(data_doc_tre_d2, aes(x=Condition, y=LC3_per_cell_area_average, fill = Treatment))+ylab("LC3/Cell Area")+ ggtitle("D2") + ylim(0,40)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
 ggplot(data_doc_tre_d4, aes(x=Condition, y=LC3_per_cell_area_average, fill = Treatment))+ylab("LC3/Cell Area")+ ggtitle("D4") + ylim(0,40)+ boxplot_settings + dotplot_settings + scale_fill_settings + scale_x_settings + theme_settings
+
+#graph before-after
+
+#Setting condition as factor
+data_CTRL$Condition_f = factor(data_CTRL$Condition, levels = c("N1", "LG", "NG"))
+data_CQ$Condition_f = factor(data_CQ$Condition, levels = c("N1", "LG", "NG"))
+data_CQ_d2$Condition_f = factor(data_CQ_d2$Condition, levels = c("N1", "LG", "NG"))
+data_CQ_d4$Condition_f = factor(data_CQ_d4$Condition, levels = c("N1", "LG", "NG"))
+
+#Setting treatment as factor
+data_CQ_d2$Treatment_f = factor(data_CQ_d2$Treatment, levels = c("CTRL", "CQ"))
+data_CQ_d4$Treatment_f = factor(data_CQ_d4$Treatment, levels = c("CTRL", "CQ"))
+
+#before-after graphs####
+
+
+#graph settings
+theme_settings = theme(axis.line=element_line(size=1, colour="black"),panel.background=element_rect(fill="white"), 
+                       axis.text=element_text(size=12, color="black", face=2), axis.title =element_text(size=14, color="black", face=2) , 
+                       title =element_text(size=14, color="black", face=2), strip.text = element_text(size=12, color="black", face=2))
+
+#before-after graph CQ d4
+data_CQ_d4 %>% ggplot(aes(x=Treatment_f, y=LC3_per_cell_area_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 area/Cell area")+ xlab("Treatment")+
+  ylim(0,.15)+ geom_point()+theme_settings
+
+data_CQ_d4 %>% ggplot(aes(x=Treatment_f, y=LC3_notLAMP1_per_cell_area, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3+ LAMP1- area/Cell area")+ xlab("Treatment")+
+  ylim(0,.15)+ geom_point()+theme_settings
+
+
