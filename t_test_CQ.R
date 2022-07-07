@@ -3,7 +3,7 @@
 #LC3#################################################################################
 
 
-#CTRL N1 LC3
+#CQ N1 LC3
 data_CQ %>% select(Prep, Day, Treatment, Condition, LC3_per_cell_average) %>%
   filter(Condition == "N1") %>% spread(Day, LC3_per_cell_average) -> data_CQ_N1_t_test
 
@@ -15,7 +15,7 @@ t.test(data_CQ_N1_t_test$D2, data_CQ_N1_t_test$D4, mu=0, alt="less", paired=T) #
 
 
 
-#CTRL LG LC3
+#CQ LG LC3
 data_CQ %>% select(Prep, Day, Treatment, Condition, LC3_per_cell_average) %>%
   filter(Condition == "LG") %>% spread(Day, LC3_per_cell_average) -> data_CQ_LG_t_test
 
@@ -27,7 +27,7 @@ t.test(data_CQ_LG_t_test$D2, data_CQ_LG_t_test$D4, mu=0, alt="less", paired=T) #
 
 
 
-#CTRL NG LC3
+#CQ NG LC3
 data_CQ %>% select(Prep, Day, Treatment, Condition, LC3_per_cell_average) %>%
   filter(Condition == "NG") %>% spread(Day, LC3_per_cell_average) -> data_CQ_NG_t_test
 
@@ -41,7 +41,7 @@ t.test(data_CQ_NG_t_test$D2, data_CQ_NG_t_test$D4, mu=0, alt="less", paired=T) #
 #LC3notLAMP1#################################################################################
 
 
-#CTRL N1 LC3notLAMP1
+#CQ N1 LC3notLAMP1
 data_CQ %>% select(Prep, Day, Treatment, Condition, LC3_not_LAMP1.LC3_per_cell_average) %>%
   filter(Condition == "N1") %>% spread(Day, LC3_not_LAMP1.LC3_per_cell_average) -> data_CQ_N1_notLAMP1_t_test
 
@@ -53,7 +53,7 @@ t.test(data_CQ_N1_notLAMP1_t_test$D2, data_CQ_N1_notLAMP1_t_test$D4, mu=0, alt="
 
 
 
-#CTRL LG LC3notLAMP1
+#CQ LG LC3notLAMP1
 data_CQ %>% select(Prep, Day, Treatment, Condition, LC3_not_LAMP1.LC3_per_cell_average) %>%
   filter(Condition == "LG") %>% spread(Day, LC3_not_LAMP1.LC3_per_cell_average) -> data_CQ_LG_notLAMP1_t_test
 
@@ -65,7 +65,7 @@ t.test(data_CQ_LG_notLAMP1_t_test$D2, data_CQ_LG_notLAMP1_t_test$D4, mu=0, alt="
 
 
 
-#CTRL LG LC3notLAMP1
+#CQ LG LC3notLAMP1
 data_CQ %>% select(Prep, Day, Treatment, Condition, LC3_not_LAMP1.LC3_per_cell_average) %>%
   filter(Condition == "NG") %>% spread(Day, LC3_not_LAMP1.LC3_per_cell_average) -> data_CQ_NG_notLAMP1_t_test
 
