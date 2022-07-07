@@ -48,7 +48,7 @@ theme_settings = theme(axis.line=element_line(size=1, colour="black"),panel.back
  axis.text=element_text(size=12, color="black", face=2), axis.title =element_text(size=14, color="black", face=2) , 
  title =element_text(size=14, color="black", face=2), strip.text = element_text(size=12, color="black", face=2))
 
-##CTRL###################################
+##CTRL LC3###################################
 
 #significant bar coordinates graph CTRL
 lines <-tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG")),
@@ -93,7 +93,7 @@ data_CTRL %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep
 ##CQ#################################################
 
 
-#significant bar coordinates graph CTRL NOT(LC3+LAMP1)
+#significant bar coordinates graph CQ LC3
 lines_CQ <-tibble(Condition_f = factor(c("LG","NG"), levels = c("N1", "LG", "NG")),
                              x =c(1,1), xend=c(2,2), y=c(32, 80), yend=y)
 pvalues_CQ <- tibble(Condition_f = factor(c("LG","NG"), levels = c("N1", "LG", "NG")), 
@@ -105,10 +105,9 @@ data_CQ %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep))+
   geom_segment(data=lines_CQ, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues_CQ, aes(x=x, y=y, label=label), inherit.aes = FALSE)
 
-##CQ#################################################
 
 
-#significant bar coordinates graph CTRL NOT(LC3+LAMP1)
+#significant bar coordinates graph CQ NOT(LC3+LAMP1)
 lines_CQ_LC3_not_LAMP1 <-tibble(Condition_f = factor(c("N1","LG","NG"), levels = c("N1", "LG", "NG")),
                   x =c(1,1,1), xend=c(2,2,2), y=c(42, 26, 30), yend=y)
 pvalues_CQ_LC3_not_LAMP1 <- tibble(Condition_f = factor(c("N1","LG","NG"), levels = c("N1", "LG", "NG")), 
@@ -119,3 +118,36 @@ data_CQ %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep))
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3+LAMP1- puncta/Cell")+ylim(0,100)+ geom_point()+theme_settings+
   geom_segment(data=lines_CQ_LC3_not_LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues_CQ_LC3_not_LAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+
+##CQ d4 LC3 #################################################
+
+#significant bar coordinates graph CQ d4 LC3
+lines_CQ_d4_LC3 <-tibble(Condition_f = factor(c("N1","LG","NG"), levels = c("N1", "LG", "NG")),
+                                x =c(1,1,1), xend=c(2,2,2), y=c(44, 30, 80), yend=y)
+pvalues_CQ_d4_LC3 <- tibble(Condition_f = factor(c("N1","LG","NG"), levels = c("N1", "LG", "NG")), 
+                                   x =c(1.5,1.5, 1.5), y=c(48, 34, 84), label = c("p=0.183","p=0.075","p=0.245"))
+
+#before-after graph CQ d4
+data_CQ_d4 %>% ggplot(aes(x=Treatment_f, y=LC3_per_cell_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ xlab("Treatment")+
+  ylim(0,100)+ geom_point()+theme_settings+
+  geom_segment(data=lines_CQ_d4_LC3, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
+  geom_text(data=pvalues_CQ_d4_LC3, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+
+
+##CQ d4 Lc3notLAMP1 #################################################
+
+#significant bar coordinates graph CQ d4 LC3notLAMP1
+lines_CQ_d4_LC3notLAMP1 <-tibble(Condition_f = factor(c("N1","LG"), levels = c("N1", "LG", "NG")),
+                         x =c(1,1), xend=c(2,2), y=c(44, 30), yend=y)
+pvalues_CQ_d4_LC3notLAMP1 <- tibble(Condition_f = factor(c("N1","LG"), levels = c("N1", "LG","NG")), 
+                            x =c(1.5,1.5), y=c(48, 34), label = c("p=0.137","p=0.107"))
+
+#before-after graph CQ d4 LC3notLAMP1
+data_CQ_d4 %>% ggplot(aes(x=Treatment_f, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep))+
+  facet_grid(~Condition_f)+ geom_line() + ylab("LC3+LAMP1- puncta/Cell")+ xlab("Treatment")+
+  ylim(0,100)+ geom_point()+theme_settings+
+  geom_segment(data=lines_CQ_d4_LC3notLAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
+  geom_text(data=pvalues_CQ_d4_LC3notLAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+
+
