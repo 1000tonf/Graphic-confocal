@@ -32,6 +32,9 @@ data_sum %>% filter((Treatment == "CTRL" | Treatment == "CQ") & Day == "D4") -> 
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D2") -> data_doc_tre_d2
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D4") -> data_doc_tre_d4
 
+
+
+
 #Setting condition as factor
 data_CTRL$Condition_f = factor(data_CTRL$Condition, levels = c("N1", "LG", "NG"))
 data_CQ$Condition_f = factor(data_CQ$Condition, levels = c("N1", "LG", "NG"))
@@ -57,8 +60,8 @@ pvalues <- tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG
   x =c(1.5, 1.5), y=c(17, 37), label = c("p = 0.085", "p = 0.009"))
 
 #before-after graph CTRL
-data_CTRL %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep))+
-  facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings +
+data_CTRL %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
+  facet_grid(~Condition_f)+ geom_line(size=1) + ylab("LC3 puncta/Cell")+ylim(0,40)+ geom_point(size=2.5)+theme_settings+
   geom_segment(data=lines, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues, aes(x=x, y=y, label=label), inherit.aes = FALSE)
 
@@ -71,7 +74,7 @@ pvalues_LC3.LAMP1 <- tibble(Condition_f = factor(c("NG"), levels = c("N1", "LG",
                   x =c(1.5), y=c(27), label = c("p = 0.035"))
       
 #before-after graphs (LC3+LAMP1)
-data_CTRL %>% ggplot(aes(x=Day, y=LAMP1.LC3_per_cell_average, group=Prep))+
+data_CTRL %>% ggplot(aes(x=Day, y=LAMP1.LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3 + LAMP1 puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings+
   geom_segment(data=lines_LC3.LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues_LC3.LAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
@@ -85,8 +88,8 @@ pvalues_not_LC3.LAMP1 <- tibble(Condition_f = factor(c("NG"), levels = c("N1", "
                             x =c(1.5), y=c(19), label = c("p = 0.001"))
 
 #before-after graphs NOT(LC3+LAMP1)
-data_CTRL %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep))+
-  facet_grid(~Condition_f)+ geom_line() + ylab("LC3+ LAMP1- puncta/Cell")+ylim(0,40)+ geom_point()+theme_settings+
+data_CTRL %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
+  facet_grid(~Condition_f)+ geom_line(size=1) + ylab("LC3+ LAMP1- puncta/Cell")+ylim(0,40)+ geom_point(size=2.5)+theme_settings+
   geom_segment(data=lines_not_LC3.LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
   geom_text(data=pvalues_not_LC3.LAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
 
