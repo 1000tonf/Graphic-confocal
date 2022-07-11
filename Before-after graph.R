@@ -24,6 +24,9 @@ data_original %>%
             LAMP1.LC3_per_LC3_average = mean(LAMP1.LC3_per_LC3)) %>% 
   mutate_all(~replace(., is.nan(.), 0)) -> data_sum
 
+#Unite Condition and Treatment for Ctrl NG NG+CQ graph
+data_sum %>% unite(col ="Condition_Treatment",c("Condition", "Treatment"), sep="-") -> data_sum
+
 #Tables for specific selections
 data_sum %>% filter(Treatment == "CTRL") -> data_CTRL
 data_sum %>% filter(Treatment == "CQ") -> data_CQ
@@ -32,14 +35,18 @@ data_sum %>% filter((Treatment == "CTRL" | Treatment == "CQ") & Day == "D4") -> 
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D2") -> data_doc_tre_d2
 data_sum %>% filter((Treatment == "CTRL"|Treatment == "D+T") & Day == "D4") -> data_doc_tre_d4
 
+#for Ctrl NG NG+CQ graph
+data_sum %>% filter((Condition_Treatment=="N1-CTRL"|Condition_Treatment=="NG-CTRL"|Condition_Treatment=="NG-CQ") & Day == "D4") %>% 
+  mutate(Condition_Treatment =recode(Condition_Treatment,"N1-CTRL"="N1","NG-CTRL"="NG")) -> data_CQ_d4
 
 
 
-#Setting condition as factor
+#Setting condition as factor (condition_Treatment in the case of the NG, NG+CQ graph)
 data_CTRL$Condition_f = factor(data_CTRL$Condition, levels = c("N1", "LG", "NG"))
 data_CQ$Condition_f = factor(data_CQ$Condition, levels = c("N1", "LG", "NG"))
 data_CQ_d2$Condition_f = factor(data_CQ_d2$Condition, levels = c("N1", "LG", "NG"))
 data_CQ_d4$Condition_f = factor(data_CQ_d4$Condition, levels = c("N1", "LG", "NG"))
+data_CQ_d4$Condition_Treatment_f = factor(data_CQ_d4$Condition_Treatment, levels = c("N1", "NG", "NG-CQ"))
 
 #Setting treatment as factor
 data_CQ_d2$Treatment_f = factor(data_CQ_d2$Treatment, levels = c("CTRL", "CQ"))
@@ -142,7 +149,10 @@ data_CQ_d2 %>% ggplot(aes(x=Treatment_f, y=LC3_per_cell_average, group=Prep, col
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3 puncta/Cell")+ xlab("Treatment")+ggtitle("D2")+
   ylim(0,100)+ geom_point(size=2.5)+theme_settings
 
-
+#Graph Ctrl NG NG+cQ d4
+data_CQ_d4 %>% ggplot(aes(x=Condition_Treatment_f, y=LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
+  geom_line(size=1) + ylab("LC3 puncta/Cell")+ xlab("Treatment")+
+  ylim(0,100)+ geom_point(size=2.5)+theme_settings
 
 
 
@@ -166,4 +176,7 @@ data_CQ_d2 %>% ggplot(aes(x=Treatment_f, y=LC3_not_LAMP1.LC3_per_cell_average, g
   facet_grid(~Condition_f)+ geom_line() + ylab("LC3+LAMP1- puncta/Cell")+ xlab("Treatment")+
   ylim(0,100)+ geom_point(size=2.5)+theme_settings+ggtitle("D2")
   
-    
+#Graph Ctrl NG NG+cQ d4
+data_CQ_d4 %>% ggplot(aes(x=Condition_Treatment_f, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
+  geom_line(size=1) + ylab("LC3+LAMP1- puncta/Cell")+ xlab("Treatment")+
+  ylim(0,30)+ geom_point(size=2.5)+theme_settings    
