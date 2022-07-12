@@ -180,3 +180,7 @@ data_CQ_d2 %>% ggplot(aes(x=Treatment_f, y=LC3_not_LAMP1.LC3_per_cell_average, g
 data_CQ_d4 %>% ggplot(aes(x=Condition_Treatment_f, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
   geom_line(size=1) + ylab("LC3+LAMP1- puncta/Cell")+ xlab("Treatment")+
   ylim(0,30)+ geom_point(size=2.5)+theme_settings    
+
+#Creating Prism friendly table
+data_CQ_d4 %>% select(Prep, Day, Condition_Treatment, LC3_per_cell_average) %>% pivot_wider(names_from = Condition_Treatment, values_from = LC3_per_cell_average) -> data_CQ_d4_wider
+
