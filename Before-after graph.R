@@ -67,8 +67,8 @@ data_CQ_d4$Treatment_f = factor(data_CQ_d4$Treatment, levels = c("CTRL", "CQ"))
 
 #graph settings
 theme_settings = theme(axis.line=element_line(size=1, colour="black"),panel.background=element_rect(fill="white"), 
- axis.text=element_text(size=12, color="black", face=2), axis.title =element_text(size=14, color="black", face=2) , 
- title =element_text(size=28, color="black", face=2), strip.text = element_text(size=12, color="black", face=2))
+ axis.text=element_text(size=20, color="black", face=2), axis.title =element_text(size=24, color="black", face=2) , 
+ title =element_text(size=24, color="black", face=2), strip.text = element_text(size=24, color="black", face=2))
 
 ##CTRL LC3###################################
 
@@ -80,9 +80,9 @@ pvalues <- tibble(Condition_f = factor(c("LG", "NG"), levels = c("N1", "LG", "NG
 
 #before-after graph CTRL
 data_CTRL %>% ggplot(aes(x=Day, y=LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
-  facet_grid(~Condition_f)+ geom_line(size=1) + ylab("LC3 puncta/Cell")+ylim(0,40)+ geom_point(size=2.5)+theme_settings+
+  facet_grid(~Condition_f)+ geom_line(size=2) + ylab("LC3 puncta/Cell")+ylim(0,40)+ geom_point(size=4.5)+theme_settings+
   geom_segment(data=lines, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
-  geom_text(data=pvalues, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+  geom_text(data=pvalues, aes(x=x, y=y, label=label), size=6, inherit.aes = FALSE)
 
 ##CTRL LC3+LAMP1###################################
 
@@ -108,9 +108,9 @@ pvalues_not_LC3.LAMP1 <- tibble(Condition_f = factor(c("NG"), levels = c("N1", "
 
 #before-after graphs NOT(LC3+LAMP1)
 data_CTRL %>% ggplot(aes(x=Day, y=LC3_not_LAMP1.LC3_per_cell_average, group=Prep, color=Prep, shape=Prep))+
-  facet_grid(~Condition_f)+ geom_line(size=1) + ylab("LC3+ LAMP1- puncta/Cell")+ylim(0,40)+ geom_point(size=2.5)+theme_settings+
+  facet_grid(~Condition_f)+ geom_line(size=2) + ylab("LC3+ LAMP1- puncta/Cell")+ylim(0,40)+ geom_point(size=4.5)+theme_settings+
   geom_segment(data=lines_not_LC3.LAMP1, aes(x=x, y=y, xend=xend, yend=yend), inherit.aes = FALSE) +
-  geom_text(data=pvalues_not_LC3.LAMP1, aes(x=x, y=y, label=label), inherit.aes = FALSE)
+  geom_text(data=pvalues_not_LC3.LAMP1, aes(x=x, y=y, label=label), size = 6, inherit.aes = FALSE)
 
 ##CQ D2xD4#################################################
 
