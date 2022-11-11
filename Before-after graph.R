@@ -1,5 +1,5 @@
 library(tidyverse)
-data_original=D2_D4_O4_LC3_LAMP1_CQ_DOC_TRE_N1_LG_NG_LAMP1_LC3_LAMP1_2022_04_29
+data_original=Manual_Count_D2_D4_O4_LC3_LAMP1_CQ_DOC_TRE_N1_LG_NG_LAMP1_LC3_LAMP1_2022_07_15
 data_original %>% mutate_all(~replace(.,is.na(.),0)) -> data_original
 
 #Calculate vesicles per cell and summarize
